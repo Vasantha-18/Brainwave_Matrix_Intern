@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeoShop - Elevate Your Shopping</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #ff6f61;
+      --secondary: #f0f4f8;
+      --dark: #333;
+      --light: #fff;
+      --accent: #1e90ff;
+      --shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(to right, #fff, #eaf4fc);
+      color: var(--dark);
+    }
+    header {
+      background: var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--light);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow);
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+    .cart {
+      background: var(--light);
+      color: var(--primary);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .cart:hover {
+      background-color: var(--accent);
+      color: white;
+    }
+    .cart span {
+      margin-left: 8px;
+      background: var(--primary);
+      color: var(--light);
+      padding: 0.2rem 0.7rem;
+      border-radius: 50%;
+      font-weight: 600;
+    }
+    nav {
+      background: var(--light);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    nav a {
+      text-decoration: none;
+      margin: 0 1rem;
+      color: var(--dark);
+      font-weight: 600;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: var(--primary);
+      transition: width 0.3s ease-in-out;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    nav input[type="text"] {
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1606760227090-8cfbb37c7c99') center/cover no-repeat;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--light);
+      padding: 2rem;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+    }
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-top: 1rem;
+    }
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+      flex-wrap: wrap;
+    }
+    .category {
+      background: var(--light);
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      padding: 0.5rem 1.2rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .category:hover {
+      background: var(--primary);
+      color: white;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .product {
+      background: var(--light);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: 0.3s ease;
+    }
+    .product:hover {
+      transform: translateY(-5px);
+    }
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .product-content {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product-content h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .product-content p {
+      color: #555;
+    }
+    .product-content button {
+      margin-top: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: var(--primary);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NeoShop</h1>
+    <div class="cart">Cart <span id="cart-count">0</span></div>
+  </header>
+  <nav>
+    <div>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Deals</a>
+      <a href="#">Contact</a>
+    </div>
+    <input type="text" id="search" placeholder="Search products...">
+  </nav>
+  <section class="hero">
+    <h2>Welcome to NeoShop</h2>
+    <p>Explore the best deals, handpicked collections, and more!</p>
+  </section>
+  <section class="categories">
+    <div class="category">All</div>
+    <div class="category">Fashion</div>
+    <div class="category">Electronics</div>
+    <div class="category">Accessories</div>
+    <div class="category">Home</div>
+  </section>
+  <main class="container" id="product-list"></main>
+  <footer>
+    &copy; 2025 NeoShop. All rights reserved.
+  </footer>
+
+  <script>
+    const products = [
+      { id: 1, name: 'Stylish Sneakers', price: 2599, img: 'https://images.unsplash.com/photo-1528701800484-007d7d81d0e6?auto=format&fit=crop&w=400&q=80' },
+      { id: 2, name: 'Smartphone 5G', price: 15999, img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80' },
+      { id: 3, name: 'Bluetooth Speaker', price: 1899, img: 'https://images.unsplash.com/photo-1587574293340-ec6f6b0391a3?auto=format&fit=crop&w=400&q=80' },
+      { id: 4, name: 'Gaming Headset', price: 3299, img: 'https://images.unsplash.com/photo-1606813902912-0f8c2a3466c3?auto=format&fit=crop&w=400&q=80' },
+      { id: 5, name: 'Backpack Pro', price: 999, img: 'https://images.unsplash.com/photo-1615397349231-6e2184b18e0b?auto=format&fit=crop&w=400&q=80' },
+      { id: 6, name: 'LED Desk Lamp', price: 749, img: 'https://images.unsplash.com/photo-1583956142838-eab8f6d04b4d?auto=format&fit=crop&w=400&q=80' },
+      { id: 7, name: 'Wireless Mouse', price: 499, img: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=400&q=80' },
+      { id: 8, name: 'USB-C Hub', price: 1299, img: 'https://images.unsplash.com/photo-1599058918145-52d1c745fde5?auto=format&fit=crop&w=400&q=80' },
+      { id: 9, name: 'Laptop Stand', price: 799, img: 'https://images.unsplash.com/photo-1587829556539-15a1e8200bde?auto=format&fit=crop&w=400&q=80' },
+      { id: 10, name: 'Smartwatch X', price: 5599, img: 'https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=400&q=80' }
+    ];
+
+    let cartCount = 0;
+    const productList = document.getElementById('product-list');
+    const cartCounter = document.getElementById('cart-count');
+
+    function displayProducts(filter = '') {
+      productList.innerHTML = '';
+      const filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+      filtered.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" 
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x300?text=Image+Not+Found';" />
+          <div class="product-content">
+            <h3>${product.name}</h3>
+            <p>₹${product.price.toLocaleString()}</p>
+            <button onclick="addToCart(${product.id})">Add to Cart</button>
+          </div>
+        `;
+        productList.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cartCount++;
+      cartCounter.textContent = cartCount;
+      alert(`${product.name} added to cart!`);
+    }
+
+    document.getElementById('search').addEventListener('input', e => {
+      displayProducts(e.target.value);
+    });
+
+    displayProducts();
+  </script>
+</body>
+</html>
